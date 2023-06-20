@@ -1,0 +1,36 @@
+// Import thư viện web3.js
+const Web3 = require('web3');
+
+// Kết nối tới mạng Ethereum thông qua một nhà cung cấp (provider) như Infura
+const web3 = new Web3('https://mainnet.infura.io/v3/YOUR_INFURA_PROJECT_ID');
+
+// Địa chỉ hợp đồng của token NFT
+const contractAddress = '0xYOUR_NFT_CONTRACT_ADDRESS';
+
+// Chuỗi ABI của hợp đồng token NFT
+const contractABI = [
+  // Chuỗi ABI của hợp đồng NFT ERC-721
+  // Điều này cần được cung cấp dựa trên chuẩn của token NFT bạn đang sử dụng
+];
+
+// ID của token NFT bạn muốn kiểm tra tính độc nhất
+const tokenId = 'YOUR_NFT_TOKEN_ID';
+
+// Hàm kiểm tra tính độc nhất của token NFT
+async function checkNftRarity() {
+  // Tạo một đối tượng hợp đồng NFT từ địa chỉ và ABI
+  const nftContract = new web3.eth.Contract(contractABI, contractAddress);
+
+  try {
+    // Gọi hàm trong hợp đồng NFT để lấy thông tin tính độc nhất của token với ID
+    const rarityInfo = await nftContract.methods.getRarity(tokenId).call();
+
+    // Xử lý thông tin tính độc nhất ở đây
+    console.log('Rarity info:', rarityInfo);
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
+// Gọi hàm kiểm tra tính độc nhất của token NFT
+checkNftRarity();
